@@ -17,7 +17,7 @@ public class ValidityManager {
 
     }
     
-    public boolean throwForfeitInputIsValid(String input) {
+    public boolean throwForfeitInputIsValid(String inputCharacter) {
         // set of rules for the word. (a to z) and 3 characters long.
         String regex = "^[ft]$";
 
@@ -25,11 +25,11 @@ public class ValidityManager {
         Pattern pattern = Pattern.compile(regex);
 
         // Check the word matches the pattern.
-        return pattern.matcher(input).matches();
+        return pattern.matcher(inputCharacter).matches();
 
     }
     
-    public boolean gameIntInputIsValid(String number) {
+    public boolean gameIntInputIsValid(String inputNumber) {
         // set of rules for the word. (a to z) and 3 characters long.
         String regex = "^[1234567]$";
 
@@ -37,8 +37,19 @@ public class ValidityManager {
         Pattern pattern = Pattern.compile(regex);
 
         // Check the word matches the pattern.
-        return pattern.matcher(number).matches();
+        return pattern.matcher(inputNumber).matches();
 
+    }
+    
+    public boolean selectDeferInputIsValid(String inputCharacter){
+        // set of rules for the word. (a to z) and 3 characters long.
+        String regex = "^[sd]$";
+
+        // Compile the regex into a pattern.
+        Pattern pattern = Pattern.compile(regex);
+
+        // Check the word matches the pattern.
+        return pattern.matcher(inputCharacter).matches();
     }
     
 }
