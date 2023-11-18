@@ -4,29 +4,29 @@ public class ScoreboardManager {
 
     GameManager gameManager = new GameManager();
 
-    public int pOneScoreOnes = 87;
+    public int pOneScoreOnes = 0;
     public int pTwoScoreOnes = 0;
     
     public int pOneScoreTwos = 0;
     public int pTwoScoreTwos = 0;
 
     public int pOneScoreThrees = 0;
-    public int pTwoScoreThrees = 1;
+    public int pTwoScoreThrees = 0;
 
     public int pOneScoreFours = 0;
-    public int pTwoScoreFours = 5;
+    public int pTwoScoreFours = 0;
 
-    public int pOneScoreFives = 345;
-    public int pTwoScoreFives = 45;
+    public int pOneScoreFives = 0;
+    public int pTwoScoreFives = 0;
 
-    public int pOneScoreSixes = 44;
+    public int pOneScoreSixes = 0;
     public int pTwoScoreSixes = 0;
 
     public int playerOneTotalScore = 0;
     public int playerTwoTotalScore = 0;
 
-    public String pOneSequence = "MISSED";
-    public String pTwoSequence = "ACHIEVED";
+    public String pOneSequence = "NULL";
+    public String pTwoSequence = "NULL";
 
     final String NULL = "NULL";
     final String MISSED = "MISSED";
