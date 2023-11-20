@@ -1,12 +1,18 @@
 package cst2110javadicegame;
 
 public class GameManager {
+    
+    // The instantiation of objects to help the game run.
+    //ScoreboardManager scoreManager = new ScoreboardManager();
+    //DiceManager diceManager = new DiceManager();
 
     public boolean GamePrompt = true;
     public boolean forfeit = false;
     public int roundNumber = 1;
     public int playerOneThrowCount = 3;
     public int playerTwoThrowCount = 3;
+    public boolean roundPresented = false;
+    public String throwNumber = "First";
     private Turn whoseTurn; // Initialising whoseTurn to be a enum from the Turn enum.
 
     // /An enum containing the two players.
@@ -21,13 +27,13 @@ public class GameManager {
         this.whoseTurn = Turn.PLAYERONE;
     }
 
-    // A method to return 'whoseturn'. this function is to be used by getCurrentTurn() function.
+    // A method to return 'whoseturn'. this function is to be used by getCurrentTurnString() function.
     // This function is set to private as it wil not be used outside this class.
     private Turn retrieveFromTurn() {
         return whoseTurn;
     }
 
-    public String getCurrentTurn() {
+    public String getCurrentTurnString() {
         if (retrieveFromTurn() == Turn.PLAYERONE) {
             return "Player One";
         } else {
@@ -47,7 +53,7 @@ public class GameManager {
     }
 
     public boolean startGamePrompt() {
-        return GamePrompt && forfeit == false;
+        return GamePrompt == true && forfeit == false;
     }
 
     public boolean gameLoop() {
@@ -70,5 +76,15 @@ public class GameManager {
 
         }
     }
+
+    public String forfeitGameProcedure() {
+        forfeit = true;
+        // Change turn
+        changeTurn();
+        return "Game Exited\n" + getCurrentTurnString() + " Wins via forfeit!";
+    }
+    
+    
+    
 
 }

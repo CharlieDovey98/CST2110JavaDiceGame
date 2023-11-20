@@ -2,11 +2,10 @@ package cst2110javadicegame;
 
 public class ScoreboardManager {
 
-    GameManager gameManager = new GameManager();
-
+    /*GameManager gameManager = new GameManager();*/
     public int pOneScoreOnes = 0;
     public int pTwoScoreOnes = 0;
-    
+
     public int pOneScoreTwos = 0;
     public int pTwoScoreTwos = 0;
 
@@ -22,6 +21,9 @@ public class ScoreboardManager {
     public int pOneScoreSixes = 0;
     public int pTwoScoreSixes = 0;
 
+    public int pOneSequenceScore;
+    public int pTwoSequenceScore;
+
     public int playerOneTotalScore = 0;
     public int playerTwoTotalScore = 0;
 
@@ -34,26 +36,28 @@ public class ScoreboardManager {
 
     public StringBuilder scoreboard = new StringBuilder();
 
-    public String returnUpdatedScoreboard() {
-        return scoreboard.append("------------------------------------------\n"
-                + "| Category     |  Player 1  |  Player 2  |\n"
-                + "------------------------------------------\n")
-                + updateRow("Ones", pOneScoreOnes, pTwoScoreOnes)
-                + "------------------------------------------\n"
-                + updateRow("Twos", pOneScoreTwos, pTwoScoreTwos)
-                + "------------------------------------------\n"
-                + updateRow("Threes", pOneScoreThrees, pTwoScoreThrees)
-                + "------------------------------------------\n"
-                + updateRow("Fours", pOneScoreFours, pTwoScoreFours)
-                + "------------------------------------------\n"
-                + updateRow("Fives", pOneScoreFives, pTwoScoreFives)
-                + "------------------------------------------\n"
-                + updateRow("Sixes", pOneScoreSixes, pTwoScoreSixes)
-                + "------------------------------------------\n"
-                + sequence(pOneSequence, pTwoSequence)
-                + "------------------------------------------\n"
-                + totalScores()
-                + "------------------------------------------\n"; // method to update sequence and overall scores
+    public StringBuilder returnUpdatedScoreboard() {
+        //playerOneTotalScoreCalculator();
+        //playerTwoTotalScoreCalculator();
+        return scoreboard.append("------------------------------------------\n")
+                .append("| Category     |  Player 1  |  Player 2  |")
+                .append("\n------------------------------------------\n")
+                .append(updateRow("Ones", pOneScoreOnes, pTwoScoreOnes))
+                .append("------------------------------------------\n")
+                .append(updateRow("Twos", pOneScoreTwos, pTwoScoreTwos))
+                .append("------------------------------------------\n")
+                .append(updateRow("Threes", pOneScoreThrees, pTwoScoreThrees))
+                .append("------------------------------------------\n")
+                .append(updateRow("Fours", pOneScoreFours, pTwoScoreFours))
+                .append("------------------------------------------\n")
+                .append(updateRow("Fives", pOneScoreFives, pTwoScoreFives))
+                .append("------------------------------------------\n")
+                .append(updateRow("Sixes", pOneScoreSixes, pTwoScoreSixes))
+                .append("------------------------------------------\n")
+                .append(sequence(pOneSequence, pTwoSequence))
+                .append("------------------------------------------\n")
+                .append(totalScores())
+                .append("------------------------------------------\n"); // method to update sequence and overall scores
     }
 
     public String updateRow(String round, int pOneScoreAfterTurn, int pTwoScoreAfterTurn) {
@@ -71,9 +75,16 @@ public class ScoreboardManager {
         }
     }
 
+    /*private void playerOneTotalScoreCalculator(){
+         playerOneTotalScore = pOneScoreOnes + pOneScoreTwos + pOneScoreThrees + pOneScoreFours + pOneScoreFives + pOneScoreSixes + pOneSequenceScore;
+    }
+    private void playerTwoTotalScoreCalculator(){
+         playerTwoTotalScore = pTwoScoreOnes + pTwoScoreTwos + pTwoScoreThrees + pTwoScoreFours + pTwoScoreFives + pTwoScoreSixes + pTwoSequenceScore;
+    }
+     */
     private String totalScores() {
         String title = "Total:";
-        return String.format("| %-6s       |     %3s    |     %3s    |\n", title, playerOneTotalScore, playerTwoTotalScore);
+        return String.format("| %-6s       |     %3d    |     %3d    |\n", title, playerOneTotalScore, playerTwoTotalScore);
     }
 
     private String sequence(String playerOneSequence, String playerTwoSequence) {
@@ -86,9 +97,12 @@ public class ScoreboardManager {
                 break;
             case MISSED:
                 playerOneSequenceOutcome = "0";
+                pOneSequenceScore = 0;
                 break;
             case ACHIEVED:
                 playerOneSequenceOutcome = "20";
+                pOneSequenceScore = 20;
+
                 break;
             default:
                 playerOneSequenceOutcome = " ";
@@ -100,9 +114,11 @@ public class ScoreboardManager {
                 break;
             case MISSED:
                 playerTwoSequenceOutcome = "0";
+                pTwoSequenceScore = 0;
                 break;
             case ACHIEVED:
                 playerTwoSequenceOutcome = "20";
+                pTwoSequenceScore = 20;
                 break;
             default:
                 playerTwoSequenceOutcome = " ";
