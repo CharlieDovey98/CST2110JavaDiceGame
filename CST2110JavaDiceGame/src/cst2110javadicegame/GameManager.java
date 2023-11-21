@@ -8,7 +8,7 @@ public class GameManager {
     // The instantiation of objects to help the game run.
     //ScoreboardManager scoreManager = new ScoreboardManager();
     //DiceManager diceManager = new DiceManager();
-    public boolean GamePrompt = false;
+
     public boolean forfeit = false;
     public int roundNumber = 1;
     public int playerThrowCount = 3;
@@ -56,10 +56,6 @@ public class GameManager {
         }
     }
 
-    public boolean startGamePrompt() {
-        return GamePrompt == true && forfeit == false;
-    }
-
     public boolean gameLoop() {
         return roundNumber == 7 || forfeit == true;
     }
@@ -73,13 +69,9 @@ public class GameManager {
     }
 
     public void decrementThrows() {
-        if (whoseTurn == Turn.PLAYERONE) {
             playerThrowCount--;
-        } else {
-            playerThrowCount--;
-
         }
-    }
+    
 
     public String forfeitGameProcedure() {
         forfeit = true;
@@ -87,6 +79,8 @@ public class GameManager {
         changeTurn();
         return "Game Exited\n" + getCurrentTurnString() + " Wins via forfeit!";
     }
+    
+    
     
 
 }

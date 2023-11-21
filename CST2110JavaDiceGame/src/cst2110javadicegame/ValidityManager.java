@@ -42,7 +42,7 @@ public class ValidityManager {
     }
     public boolean sequenceIntInputIsValid(String inputNumber) {
         // set of rules for the word. (a to z) and 3 characters long.
-        String regex = "^[012345]$";
+        String regex = "^[012345 ]{1,9}$";
 
         // Compile the regex into a pattern.
         Pattern pattern = Pattern.compile(regex);

@@ -129,5 +129,6 @@ public class DiceManager {
             default:
                 System.out.println("Error, Switch Case default, println inputThree " + input);
         }
+        System.out.println(chosenIntegerString + " selected");
     }
 }
