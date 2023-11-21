@@ -40,6 +40,17 @@ public class ValidityManager {
         return pattern.matcher(inputNumber).matches();
 
     }
+    public boolean sequenceIntInputIsValid(String inputNumber) {
+        // set of rules for the word. (a to z) and 3 characters long.
+        String regex = "^[012345]$";
+
+        // Compile the regex into a pattern.
+        Pattern pattern = Pattern.compile(regex);
+
+        // Check the word matches the pattern.
+        return pattern.matcher(inputNumber).matches();
+
+    }
     
     public boolean selectDeferInputIsValid(String inputCharacter){
         // set of rules for the word. (a to z) and 3 characters long.

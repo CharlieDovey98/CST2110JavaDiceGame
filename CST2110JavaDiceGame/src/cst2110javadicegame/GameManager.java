@@ -1,30 +1,34 @@
 package cst2110javadicegame;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class GameManager {
-    
+
     // The instantiation of objects to help the game run.
     //ScoreboardManager scoreManager = new ScoreboardManager();
     //DiceManager diceManager = new DiceManager();
-
-    public boolean GamePrompt = true;
+    public boolean GamePrompt = false;
     public boolean forfeit = false;
     public int roundNumber = 1;
-    public int playerOneThrowCount = 3;
-    public int playerTwoThrowCount = 3;
+    public int playerThrowCount = 3;
     public boolean roundPresented = false;
-    public String throwNumber = "First";
+    public String throwString = "First";
     private Turn whoseTurn; // Initialising whoseTurn to be a enum from the Turn enum.
+    private Set<String> sequenceSet;
 
     // /An enum containing the two players.
     public enum Turn {
         PLAYERONE,
-        PLAYERTWO
+        PLAYERTWO // enum properties
     }
 
     // A constructor for the class to initialise the whoseTurn to PLAYERONE.
     public GameManager() {
         // setting the initial turn to PLAYERONE.
         this.whoseTurn = Turn.PLAYERONE;
+        sequenceSet = new HashSet<>();
+
     }
 
     // A method to return 'whoseturn'. this function is to be used by getCurrentTurnString() function.
@@ -62,17 +66,17 @@ public class GameManager {
 
     public int throwsRemaining() {
         if (whoseTurn == Turn.PLAYERONE) {
-            return playerOneThrowCount;
+            return playerThrowCount;
         } else {
-            return playerTwoThrowCount;
+            return playerThrowCount;
         }
     }
 
     public void decrementThrows() {
         if (whoseTurn == Turn.PLAYERONE) {
-            playerOneThrowCount--;
+            playerThrowCount--;
         } else {
-            playerTwoThrowCount--;
+            playerThrowCount--;
 
         }
     }
@@ -83,8 +87,6 @@ public class GameManager {
         changeTurn();
         return "Game Exited\n" + getCurrentTurnString() + " Wins via forfeit!";
     }
-    
-    
     
 
 }

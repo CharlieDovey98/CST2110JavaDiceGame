@@ -21,8 +21,8 @@ public class ScoreboardManager {
     public int pOneScoreSixes = 0;
     public int pTwoScoreSixes = 0;
 
-    public int pOneSequenceScore;
-    public int pTwoSequenceScore;
+    public int pOneSequenceScore; // this might have to be initialised to 0 becuase of the choice selector switch case
+    public int pTwoSequenceScore; // same for this
 
     public int playerOneTotalScore = 0;
     public int playerTwoTotalScore = 0;
@@ -37,27 +37,27 @@ public class ScoreboardManager {
     public StringBuilder scoreboard = new StringBuilder();
 
     public StringBuilder returnUpdatedScoreboard() {
-        //playerOneTotalScoreCalculator();
-        //playerTwoTotalScoreCalculator();
-        return scoreboard.append("------------------------------------------\n")
-                .append("| Category     |  Player 1  |  Player 2  |")
-                .append("\n------------------------------------------\n")
-                .append(updateRow("Ones", pOneScoreOnes, pTwoScoreOnes))
-                .append("------------------------------------------\n")
-                .append(updateRow("Twos", pOneScoreTwos, pTwoScoreTwos))
-                .append("------------------------------------------\n")
-                .append(updateRow("Threes", pOneScoreThrees, pTwoScoreThrees))
-                .append("------------------------------------------\n")
-                .append(updateRow("Fours", pOneScoreFours, pTwoScoreFours))
-                .append("------------------------------------------\n")
-                .append(updateRow("Fives", pOneScoreFives, pTwoScoreFives))
-                .append("------------------------------------------\n")
-                .append(updateRow("Sixes", pOneScoreSixes, pTwoScoreSixes))
-                .append("------------------------------------------\n")
-                .append(sequence(pOneSequence, pTwoSequence))
-                .append("------------------------------------------\n")
-                .append(totalScores())
-                .append("------------------------------------------\n"); // method to update sequence and overall scores
+        scoreboard.setLength(0);
+         scoreboard.append("------------------------------------------\n");
+                scoreboard.append("| Category     |  Player 1  |  Player 2  |");
+                scoreboard.append("\n------------------------------------------\n");
+                scoreboard.append(updateRow("Ones", pOneScoreOnes, pTwoScoreOnes));
+                scoreboard.append("------------------------------------------\n");
+                scoreboard.append(updateRow("Twos", pOneScoreTwos, pTwoScoreTwos));
+                scoreboard.append("------------------------------------------\n");
+                scoreboard.append(updateRow("Threes", pOneScoreThrees, pTwoScoreThrees));
+                scoreboard.append("------------------------------------------\n");
+                scoreboard.append(updateRow("Fours", pOneScoreFours, pTwoScoreFours));
+                scoreboard.append("------------------------------------------\n");
+                scoreboard.append(updateRow("Fives", pOneScoreFives, pTwoScoreFives));
+                scoreboard.append("------------------------------------------\n");
+                scoreboard.append(updateRow("Sixes", pOneScoreSixes, pTwoScoreSixes));
+                scoreboard.append("------------------------------------------\n");
+                scoreboard.append(sequence(pOneSequence, pTwoSequence));
+                scoreboard.append("------------------------------------------\n");
+                scoreboard.append(totalScores());
+                scoreboard.append("------------------------------------------\n"); // method to update sequence and overall scores
+        return scoreboard;
     }
 
     public String updateRow(String round, int pOneScoreAfterTurn, int pTwoScoreAfterTurn) {

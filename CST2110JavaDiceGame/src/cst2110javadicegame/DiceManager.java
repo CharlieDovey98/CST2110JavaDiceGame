@@ -1,7 +1,6 @@
 package cst2110javadicegame;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 public class DiceManager {
@@ -21,6 +20,8 @@ public class DiceManager {
     private ArrayList<Integer> roundMatchedDiceList;
     public ArrayList<Integer> turnMatchedDiceList;
     private ArrayList<Integer> diceList;
+    
+    
     
     public DiceManager() {
         diceList = new ArrayList<>();
