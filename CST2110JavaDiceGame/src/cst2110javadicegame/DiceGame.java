@@ -133,7 +133,7 @@ public class DiceGame {
 
                         diceManager.clearDiceList(diceManager.getTurnDiceList());
 
-                        if (gameManager.playerThrowCount >= 0 || diceManager.roundDiceListSize() != 5) {
+                        if (gameManager.playerThrowCount >= 0 && diceManager.roundDiceListSize() != 5) {
                             throwInformation();
 
                             String inputFive = scanner.next();
