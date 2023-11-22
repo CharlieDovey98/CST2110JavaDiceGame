@@ -2,7 +2,6 @@ package cst2110javadicegame;
 
 public class ScoreboardManager {
 
-    /*GameManager gameManager = new GameManager();*/
     public int pOneScoreOnes = 0;
     public int pTwoScoreOnes = 0;
 
@@ -38,31 +37,40 @@ public class ScoreboardManager {
 
     public StringBuilder returnUpdatedScoreboard() {
         scoreboard.setLength(0);
-         scoreboard.append("------------------------------------------\n");
-                scoreboard.append("| Category     |  Player 1  |  Player 2  |");
-                scoreboard.append("\n------------------------------------------\n");
-                scoreboard.append(updateRow("Ones", pOneScoreOnes, pTwoScoreOnes));
-                scoreboard.append("------------------------------------------\n");
-                scoreboard.append(updateRow("Twos", pOneScoreTwos, pTwoScoreTwos));
-                scoreboard.append("------------------------------------------\n");
-                scoreboard.append(updateRow("Threes", pOneScoreThrees, pTwoScoreThrees));
-                scoreboard.append("------------------------------------------\n");
-                scoreboard.append(updateRow("Fours", pOneScoreFours, pTwoScoreFours));
-                scoreboard.append("------------------------------------------\n");
-                scoreboard.append(updateRow("Fives", pOneScoreFives, pTwoScoreFives));
-                scoreboard.append("------------------------------------------\n");
-                scoreboard.append(updateRow("Sixes", pOneScoreSixes, pTwoScoreSixes));
-                scoreboard.append("------------------------------------------\n");
-                scoreboard.append(sequence(pOneSequence, pTwoSequence));
-                scoreboard.append("------------------------------------------\n");
-                scoreboard.append(totalScores());
-                scoreboard.append("------------------------------------------\n"); // method to update sequence and overall scores
+        scoreboard.append("------------------------------------------\n");
+        scoreboard.append("| Category     |  Player 1  |  Player 2  |");
+        scoreboard.append("\n------------------------------------------\n");
+        scoreboard.append(updateRow("Ones", pOneScoreOnes, pTwoScoreOnes));
+        scoreboard.append("------------------------------------------\n");
+        scoreboard.append(updateRow("Twos", pOneScoreTwos, pTwoScoreTwos));
+        scoreboard.append("------------------------------------------\n");
+        scoreboard.append(updateRow("Threes", pOneScoreThrees, pTwoScoreThrees));
+        scoreboard.append("------------------------------------------\n");
+        scoreboard.append(updateRow("Fours", pOneScoreFours, pTwoScoreFours));
+        scoreboard.append("------------------------------------------\n");
+        scoreboard.append(updateRow("Fives", pOneScoreFives, pTwoScoreFives));
+        scoreboard.append("------------------------------------------\n");
+        scoreboard.append(updateRow("Sixes", pOneScoreSixes, pTwoScoreSixes));
+        scoreboard.append("------------------------------------------\n");
+        scoreboard.append(sequence(pOneSequence, pTwoSequence));
+        scoreboard.append("------------------------------------------\n");
+        scoreboard.append(totalScores());
+        scoreboard.append("------------------------------------------\n"); // method to update sequence and overall scores
         return scoreboard;
     }
+//
 
     public String updateRow(String round, int pOneScoreAfterTurn, int pTwoScoreAfterTurn) {
         String space = "   ";
-        if (pOneScoreAfterTurn == 0 && pTwoScoreAfterTurn == 0) {
+        if (pOneScoreAfterTurn < 0 && pTwoScoreAfterTurn > 0) {
+            return String.format("| %-8s     |     %3s    |     %3s    |\n", round, "0", pTwoScoreAfterTurn);
+        } else if (pOneScoreAfterTurn > 0 && pTwoScoreAfterTurn < 0) {
+            return String.format("| %-8s     |     %3s    |     %3s    |\n", round, pOneScoreAfterTurn, "0");
+        } else if (pOneScoreAfterTurn < 0 && pTwoScoreAfterTurn == 0) {
+            return String.format("| %-8s     |     %3s    |     %3s    |\n", round, "0", space);
+        } else if (pOneScoreAfterTurn == 0 && pTwoScoreAfterTurn < 0) {
+            return String.format("| %-8s     |     %3s    |     %3s    |\n", round, pOneScoreAfterTurn, "0");
+        } else if (pOneScoreAfterTurn == 0 && pTwoScoreAfterTurn == 0) {
             return String.format("| %-8s     |     %3s    |     %3s    |\n", round, space, space);
         } else if (pOneScoreAfterTurn > 0 && pTwoScoreAfterTurn == 0) {
             return String.format("| %-8s     |     %3d    |     %3s    |\n", round, pOneScoreAfterTurn, space);
@@ -75,13 +83,6 @@ public class ScoreboardManager {
         }
     }
 
-    /*private void playerOneTotalScoreCalculator(){
-         playerOneTotalScore = pOneScoreOnes + pOneScoreTwos + pOneScoreThrees + pOneScoreFours + pOneScoreFives + pOneScoreSixes + pOneSequenceScore;
-    }
-    private void playerTwoTotalScoreCalculator(){
-         playerTwoTotalScore = pTwoScoreOnes + pTwoScoreTwos + pTwoScoreThrees + pTwoScoreFours + pTwoScoreFives + pTwoScoreSixes + pTwoSequenceScore;
-    }
-     */
     private String totalScores() {
         String title = "Total:";
         return String.format("| %-6s       |     %3d    |     %3d    |\n", title, playerOneTotalScore, playerTwoTotalScore);
@@ -97,12 +98,10 @@ public class ScoreboardManager {
                 break;
             case MISSED:
                 playerOneSequenceOutcome = "0";
-                pOneSequenceScore = 0;
                 break;
             case ACHIEVED:
                 playerOneSequenceOutcome = "20";
-                pOneSequenceScore = 20;
-
+                playerOneTotalScore += 20;
                 break;
             default:
                 playerOneSequenceOutcome = " ";
@@ -114,11 +113,10 @@ public class ScoreboardManager {
                 break;
             case MISSED:
                 playerTwoSequenceOutcome = "0";
-                pTwoSequenceScore = 0;
                 break;
             case ACHIEVED:
                 playerTwoSequenceOutcome = "20";
-                pTwoSequenceScore = 20;
+                playerTwoTotalScore += 20;
                 break;
             default:
                 playerTwoSequenceOutcome = " ";

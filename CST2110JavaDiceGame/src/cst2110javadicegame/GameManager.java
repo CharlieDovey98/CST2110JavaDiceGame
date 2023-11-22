@@ -5,10 +5,6 @@ import java.util.Set;
 
 public class GameManager {
 
-    // The instantiation of objects to help the game run.
-    //ScoreboardManager scoreManager = new ScoreboardManager();
-    //DiceManager diceManager = new DiceManager();
-
     public boolean forfeit = false;
     public int roundNumber = 1;
     public int playerThrowCount = 3;
@@ -57,7 +53,7 @@ public class GameManager {
     }
 
     public boolean gameLoop() {
-        return roundNumber == 7 || forfeit == true;
+        return roundNumber == 8 || forfeit == true;
     }
 
     public int throwsRemaining() {
