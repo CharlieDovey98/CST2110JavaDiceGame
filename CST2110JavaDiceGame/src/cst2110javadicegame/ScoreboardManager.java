@@ -69,7 +69,7 @@ public class ScoreboardManager {
         } else if (pOneScoreAfterTurn < 0 && pTwoScoreAfterTurn == 0) {
             return String.format("| %-8s     |     %3s    |     %3s    |\n", round, "0", space);
         } else if (pOneScoreAfterTurn == 0 && pTwoScoreAfterTurn < 0) {
-            return String.format("| %-8s     |     %3s    |     %3s    |\n", round, pOneScoreAfterTurn, "0");
+            return String.format("| %-8s     |     %3s    |     %3s    |\n", round, space, "0");
         } else if (pOneScoreAfterTurn == 0 && pTwoScoreAfterTurn == 0) {
             return String.format("| %-8s     |     %3s    |     %3s    |\n", round, space, space);
         } else if (pOneScoreAfterTurn > 0 && pTwoScoreAfterTurn == 0) {

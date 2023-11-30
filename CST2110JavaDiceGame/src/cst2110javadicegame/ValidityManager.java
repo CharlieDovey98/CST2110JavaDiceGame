@@ -1,76 +1,76 @@
 package cst2110javadicegame;
 
+import java.util.HashSet;
 import java.util.regex.Pattern;
 
 public class ValidityManager {
 
+    public HashSet<Integer> playerOneChosenNumbers = new HashSet<>();
+    public HashSet<Integer> playerTwoChosenNumbers = new HashSet<>();
+
     public boolean startGameIsValid(String number) {
-        // set of rules for the word. (a to z) and 3 characters long.
-        String regex = "^[01]$";
-
-        // Compile the regex into a pattern.
-        Pattern pattern = Pattern.compile(regex);
-
-        // Check the word matches the pattern.
-        return pattern.matcher(number).matches();
-
+        String regex = "^[01]$"; // A set of rules for the number. (1 or 0) and 1 character long.
+        Pattern pattern = Pattern.compile(regex); // Compile the regex into a pattern.
+        return pattern.matcher(number).matches(); // Return boolean true if the number matches the pattern.
     }
 
     public boolean throwForfeitInputIsValid(String inputCharacter) {
-        // set of rules for the word. (a to z) and 3 characters long.
-        String regex = "^[ft]$";
-
-        // Compile the regex into a pattern.
-        Pattern pattern = Pattern.compile(regex);
-
-        // Check the word matches the pattern.
-        return pattern.matcher(inputCharacter).matches();
-
+        String regex = "^[ft]$"; // A set of rules for the character. (f or t) and 1 character long.
+        Pattern pattern = Pattern.compile(regex); // Compile the regex into a pattern.
+        return pattern.matcher(inputCharacter).matches(); // Return boolean true if the character matches the pattern.
     }
 
     public boolean gameIntInputIsValid(String inputNumber) {
-        // set of rules for the word. (a to z) and 3 characters long.
-        String regex = "^[1234567]$";
-
-        // Compile the regex into a pattern.
-        Pattern pattern = Pattern.compile(regex);
-
-        // Check the word matches the pattern.
-        return pattern.matcher(inputNumber).matches();
-
-    }
-
-    public boolean sequenceIntInputIsValid(String sequenceInput) {
-        // set of rules for the word. (a to z) and 3 characters long.
-        String regex = "^[012345 ]{1,9}$";
-
-        // Compile the regex into a pattern.
-        Pattern pattern = Pattern.compile(regex);
-        boolean patternMatcherCheck = pattern.matcher(sequenceInput).matches();
-        boolean integerSizeCheck = true;
-        
-        if (patternMatcherCheck) {
-        for (String number : sequenceInput.split("\\s+")) {
-            int inputNumber = Integer.parseInt(number.trim());
-            if (inputNumber > 6) {
-                integerSizeCheck = false;
-            }
-        }
-        } 
-        // Check the word matches the pattern and each input is a digit less than 5.
-        return patternMatcherCheck && integerSizeCheck;
-
+        String regex = "^[1234567]$"; // A set of rules for the number. (1 to 7) and 1 character long.
+        Pattern pattern = Pattern.compile(regex); // Compile the regex into a pattern.
+        return pattern.matcher(inputNumber).matches(); // Return boolean true if the number matches the pattern.
     }
 
     public boolean selectDeferInputIsValid(String inputCharacter) {
-        // set of rules for the word. (a to z) and 3 characters long.
-        String regex = "^[sd]$";
+        String regex = "^[sd]$"; // A set of rules for the character. (s or d) and 1 character long. 
+        Pattern pattern = Pattern.compile(regex); // Compile the regex into a pattern.
+        return pattern.matcher(inputCharacter).matches(); // Return boolean true if the character matches the pattern.
+    }
 
-        // Compile the regex into a pattern.
-        Pattern pattern = Pattern.compile(regex);
+    public boolean sequenceIntInputIsValid(String sequenceInput) {
+        String regex = "^[012345 ]{1,9}$"; // A set of rules for the sequence input. (0 to 5 including spaces) and between 1 and 9 characters long.
+        Pattern pattern = Pattern.compile(regex); // Compile the regex into a pattern.
+        boolean patternMatcherCheck = pattern.matcher(sequenceInput).matches(); // A boolean to show whether the user input matches the regex
+        boolean integerSizeCheck = true; // A boolean to show whether the integers are the right size (single digit integers)
 
-        // Check the word matches the pattern.
-        return pattern.matcher(inputCharacter).matches();
+        if (patternMatcherCheck) { // If the input matches the pattern proceed.
+            for (String number : sequenceInput.split("\\s+")) { // For each number, seperated with a space in the input, split the numbers into their own strings
+                int inputNumber = Integer.parseInt(number.trim()); // This then pushes the given string into an int after trimming
+                if (inputNumber > 5) { // If the number is greater than 5 the boolean integerSizeCheck will become false 
+                    integerSizeCheck = false;
+                }
+            }
+        }
+        return patternMatcherCheck && integerSizeCheck; // Return boolean true if the sequence of numebrs matches the pattern and each input is a digit less than 5.
+    }
+
+    public boolean hasNumberBeenChosen(String inputNumber, String player) {
+        boolean hasBeenChosen = false;
+        int userChosenNumber = Integer.parseInt(inputNumber);
+        switch (player) {
+            case "Player One":
+                if (playerOneChosenNumbers.contains(userChosenNumber)){
+                    hasBeenChosen = true;
+                }
+                break;
+            case "Player Two":
+                if (playerTwoChosenNumbers.contains(userChosenNumber)){
+                    hasBeenChosen = true;
+                }
+                break;
+            default:
+                System.out.println("Error hasNumberBeenChosen 001");
+                break;
+        }
+        System.out.println("P1 chosen integers so far:" + playerOneChosenNumbers);
+        System.out.println("P1 chosen integers so far:" + playerTwoChosenNumbers);
+        System.out.println(hasBeenChosen);
+        return hasBeenChosen;
     }
 
 }

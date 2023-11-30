@@ -17,18 +17,10 @@ public class DiceManager {
     final String SIXES = "6";
     final String SEQUENCE = "7";
 
-    private ArrayList<Integer> roundMatchedDiceList;
-    public ArrayList<Integer> turnMatchedDiceList;
-    private ArrayList<Integer> diceList;
+    private ArrayList<Integer> roundMatchedDiceList = new ArrayList<>();
+    public ArrayList<Integer> turnMatchedDiceList = new ArrayList<>();
+    private ArrayList<Integer> diceList = new ArrayList<>();
     
-    
-    
-    public DiceManager() {
-        diceList = new ArrayList<>();
-        roundMatchedDiceList = new ArrayList<>();
-        turnMatchedDiceList = new ArrayList<>();
-    }
-
     public void clearDiceList(ArrayList dicelist) {
         dicelist.clear();
     }
@@ -93,8 +85,11 @@ public class DiceManager {
         return roundMatchedDiceList.size();
     }
 
-    public void setDiceNumber() {
-        diceNumber = (5 - roundMatchedDiceList.size());
+    public void setDiceNumber(ArrayList list) {
+        diceNumber = (5 - list.size());
+    }
+    public int returnChosenInteger(){
+        return chosenInteger;
     }
 
     public void switchOnInput(String input) {
