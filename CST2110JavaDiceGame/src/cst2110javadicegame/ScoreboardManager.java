@@ -20,8 +20,8 @@ public class ScoreboardManager {
     public int pOneScoreSixes = 0;
     public int pTwoScoreSixes = 0;
 
-    public int pOneSequenceScore; // this might have to be initialised to 0 becuase of the choice selector switch case
-    public int pTwoSequenceScore; // same for this
+    public boolean pOneSequenceAttempted = false;
+    public boolean pTwoSequenceAttempted = false; 
 
     public int playerOneTotalScore = 0;
     public int playerTwoTotalScore = 0;

@@ -84,10 +84,15 @@ public class DiceManager {
     public int roundDiceListSize() {
         return roundMatchedDiceList.size();
     }
+    
+    public int diceListSize() {
+        return diceList.size();
+    }
 
     public void setDiceNumber(ArrayList list) {
         diceNumber = (5 - list.size());
     }
+    
     public int returnChosenInteger(){
         return chosenInteger;
     }
