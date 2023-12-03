@@ -65,18 +65,14 @@ public class GameManager {
     }
 
     public void decrementThrows() {
-            playerThrowCount--;
-        }
-    
+        playerThrowCount--;
+    }
 
     public String forfeitGameProcedure() {
+        System.out.println("exit game port 006");
         forfeit = true;
         // Change turn
         changeTurn();
         return "Game Exited\n" + getCurrentTurnString() + " Wins via forfeit!";
     }
-    
-    
-    
-
 }

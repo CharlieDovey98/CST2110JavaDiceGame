@@ -21,7 +21,7 @@ public class ScoreboardManager {
     public int pTwoScoreSixes = 0;
 
     public boolean pOneSequenceAttempted = false;
-    public boolean pTwoSequenceAttempted = false; 
+    public boolean pTwoSequenceAttempted = false;
 
     public int playerOneTotalScore = 0;
     public int playerTwoTotalScore = 0;
@@ -78,6 +78,8 @@ public class ScoreboardManager {
             return String.format("| %-8s     |     %3d    |     %3d    |\n", round, pOneScoreAfterTurn, pTwoScoreAfterTurn);
         } else if (pOneScoreAfterTurn == 0 && pTwoScoreAfterTurn > 0) {
             return String.format("| %-8s     |     %3s    |     %3d    |\n", round, space, pTwoScoreAfterTurn);
+        } else if (pOneScoreAfterTurn < 0 && pTwoScoreAfterTurn < 0) {
+            return String.format("| %-8s     |     %3s    |     %3s    |\n", round, "0", "0");
         } else {
             return "Scoreboard error 0001";
         }
@@ -101,7 +103,6 @@ public class ScoreboardManager {
                 break;
             case ACHIEVED:
                 playerOneSequenceOutcome = "20";
-                playerOneTotalScore += 20;
                 break;
             default:
                 playerOneSequenceOutcome = " ";
@@ -116,7 +117,7 @@ public class ScoreboardManager {
                 break;
             case ACHIEVED:
                 playerTwoSequenceOutcome = "20";
-                playerTwoTotalScore += 20;
+                //playerTwoTotalScore += 20;
                 break;
             default:
                 playerTwoSequenceOutcome = " ";

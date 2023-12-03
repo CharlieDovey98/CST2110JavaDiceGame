@@ -1,7 +1,6 @@
 package cst2110javadicegame;
 
 import java.util.HashSet;
-import java.util.TreeSet;
 import java.util.regex.Pattern;
 
 public class ValidityManager {
@@ -79,5 +78,4 @@ public class ValidityManager {
         System.out.println(hasBeenChosen);
         return hasBeenChosen;
     }
-
 }

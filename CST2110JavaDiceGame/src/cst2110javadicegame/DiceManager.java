@@ -18,7 +18,7 @@ public class DiceManager {
     final String SEQUENCE = "7";
 
     private ArrayList<Integer> roundMatchedDiceList = new ArrayList<>();
-    public ArrayList<Integer> turnMatchedDiceList = new ArrayList<>();
+    private ArrayList<Integer> turnMatchedDiceList = new ArrayList<>();
     private ArrayList<Integer> diceList = new ArrayList<>();
     
     public void clearDiceList(ArrayList dicelist) {
