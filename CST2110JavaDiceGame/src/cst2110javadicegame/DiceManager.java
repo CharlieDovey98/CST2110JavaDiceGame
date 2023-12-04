@@ -6,12 +6,12 @@ import java.util.Random;
 // A class to hold the necessary information for the Dice, including functions to roll, add, and clear several dice lists integral to the game.
 public class DiceManager {
 
-    // the initialisation of key variables for the Dice Manager class
+    // The initialisation of key variables for the Dice Manager class
     public int chosenInteger = 1;
     public String chosenIntegerString = " ";
     public int diceNumber = 5;
 
-    // the initialisation of final Strings to be used within funtions in this class. These strings will be used within a Switch case below.
+    // The initialisation of final Strings to be used within funtions in this class. These strings will be used within a Switch case below.
     final String ONES = "1";
     final String TWOS = "2";
     final String THREES = "3";

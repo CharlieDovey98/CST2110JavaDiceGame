@@ -28,20 +28,16 @@ public class DiceGame {
         playOrExitGame(); // Prompt the user to play or exit the game.
 
         while (gameManager.gameLoop() == false) { // While the games rounds havent complete nor a player forfeit, continue.
-
             if (gameManager.roundPresented == false) { // Present the game round Print out whilst round presented == false.
                 System.out.println("---------\nRound " + gameManager.roundNumber + " |\n---------\n");
                 gameManager.roundPresented = true;
             }
-
             if ("Player One".equals(gameManager.getCurrentTurnString()) && gameManager.forfeit != true) { // If its player One's turn call the playerTurn Function.
                 playerTurn();
             }
-
             if ("Player Two".equals(gameManager.getCurrentTurnString()) && gameManager.forfeit != true) { // If its player Two's turn call the playerTurn Function.
                 playerTurn();
             }
-
             gameManager.roundNumber += 1;  // Increment the round number by 1.
             gameManager.roundPresented = false; // Set the round presented to false, to show on the next round.
         }
