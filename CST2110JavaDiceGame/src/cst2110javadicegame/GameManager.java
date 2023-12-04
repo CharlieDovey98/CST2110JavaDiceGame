@@ -3,22 +3,22 @@ package cst2110javadicegame;
 // A class which holds key variables for the game to run and key functions that help the game run smoothly.
 public class GameManager {
 
+    // Variables to be used within the code.
     public int roundNumber = 1;
     public int playerThrowCount = 3;
     public boolean roundPresented = false;
     public boolean forfeit = false;
     boolean categorySelected = false;
     public String throwString = "First";
-    private Turn whoseTurn; // Initialising whoseTurn to be a enum from the Turn enum.
-    //private Set<String> sequenceSet = new HashSet<>();
-
+    private Turn whoseTurn; 
+    
     // An enum containing the two players.
     public enum Turn {
         PLAYERONE, // enum properties
         PLAYERTWO
     }
 
-    // A constructor for the class to initialise the whoseTurn to PLAYERONE.
+    // A constructor for the class to instantiate the whoseTurn to PLAYERONE.
     public GameManager() {
         // setting the initial turn to PLAYERONE.
         this.whoseTurn = Turn.PLAYERONE;

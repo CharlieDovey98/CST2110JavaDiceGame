@@ -79,11 +79,11 @@ public class DiceGame {
     // This method is the first throw of a players turn.
     public void playerFirstThrow() {
         throwInformation(); // Print initial information and prompt the user to 't' throw of 'f' forfeit.
-        String inputOne = scanner.nextLine();// Attain the user input and force it to lowercase.
+        String inputOne = scanner.nextLine();// Attain the user input and push it to lowercase.
         String inputOneLower = inputOne.toLowerCase();
-        while (validityManager.throwForfeitInputIsValid(inputOneLower) == false) {
+        while (validityManager.throwForfeitInputIsValid(inputOneLower) == false) { // while user input is invalid keep prompting the user until a valid input is attained.
             System.out.println("Not a valid input.");
-            throwInformation(); // Print initial information and prompt the user to 't' throw of 'f' forfeit.
+            throwInformation();
             inputOne = scanner.nextLine();
             inputOneLower = inputOne.toLowerCase();
         }
@@ -102,11 +102,11 @@ public class DiceGame {
                 inputTwo = scanner.nextLine();
                 inputTwoLower = inputTwo.toLowerCase();
             }
-            if ("d".equals(inputTwoLower)) {
+            if ("d".equals(inputTwoLower)) { // If the player inputs 'd' the turn is deferred 
                 System.out.println("\nyou have chosen to re-roll your dice, disregarding this throw.");
                 playerTurn();
             }
-            if ("s".equals(inputTwoLower)) {
+            if ("s".equals(inputTwoLower)) { // If the player inputs 's' the user will be prompted to select a category that they havent already chosen.
                 System.out.println("Select a category not chosen before to play.\n");
                 selectionPrinter(gameManager.getCurrentTurnString());
                 String inputThree = scanner.nextLine();
@@ -114,19 +114,19 @@ public class DiceGame {
                 while (validityManager.gameIntInputIsValid(inputThree) == false || validityManager.hasNumberBeenChosen(inputThree, gameManager.getCurrentTurnString()) == true) {
                     System.out.println("Not a valid input.");
                     System.out.println("Select a category not chosen before to play.\n");
-                    selectionPrinter(gameManager.getCurrentTurnString());
+                    selectionPrinter(gameManager.getCurrentTurnString()); // Print out the choices left over for the user.
                     inputThree = scanner.nextLine();
                 }
-                if ("7".equals(inputThree)) {
-                    diceManager.switchOnInput(inputThree); // Switch statement to retrieve the chosen die number from the user
-                    addToChosenNumbers(gameManager.getCurrentTurnString(), Integer.parseInt(inputThree)); // Add the chosen number to the players Chosen Numbers Hash Set
-                    sequence(); // call for the Sequence procedure
+                if ("7".equals(inputThree)) { // If the player inputs '7' the sequence turn will be initiated.
+                    diceManager.switchOnInput(inputThree); // Switch statement to retrieve the chosen die number from the user.
+                    addToChosenNumbers(gameManager.getCurrentTurnString(), Integer.parseInt(inputThree)); // Add the chosen number to the players Chosen Numbers Hash Set.
+                    sequence(); // call for the Sequence procedure.
                     exitTurnProcedure(); // The player has finished their turn, Run the nessecary tasks to setup the next turn.
                 } else {
-                    diceManager.switchOnInput(inputThree); // Switch statement to retrieve the chosen die number from the user
-                    addToChosenNumbers(gameManager.getCurrentTurnString(), Integer.parseInt(inputThree)); // Add the chosen number to the players Chosen Numbers Hash Set
-                    diceManager.diceTurnListInserter(); // insert into the turn dice list
-                    diceManager.diceRoundListInserter();
+                    diceManager.switchOnInput(inputThree); // Switch statement to retrieve the chosen die number from the user.
+                    addToChosenNumbers(gameManager.getCurrentTurnString(), Integer.parseInt(inputThree)); // Add the chosen number to the players Chosen Numbers Hash Set.
+                    diceManager.diceTurnListInserter(); // insert into the turn dice list.
+                    diceManager.diceRoundListInserter(); // insert into the round dice list.
                     throwOutcomeInformation(); // Print matched dice from that throw, the amount of dice set aside and the 'round dice list' containing all matched dice.
                     diceManager.clearDiceList(diceManager.getTurnDiceList());
                     gameManager.categorySelected = true;
@@ -148,11 +148,10 @@ public class DiceGame {
             inputFour = scanner.nextLine();
             inputFourLower = inputFour.toLowerCase();
         }
-        if ("f".equals(inputFourLower)) {
+        if ("f".equals(inputFourLower)) { // If the player inputs 'f' the forfeit game procedure will initiate.
             System.out.println(gameManager.forfeitGameProcedure());
-            // If the player inputs 't' and they have turns left, the throw dice procedure will initiate.
         }
-        if ("t".equals(inputFourLower)) {
+        if ("t".equals(inputFourLower)) { // If the player inputs 't' and they have turns left, the throw dice procedure will initiate.
             playerThrows(diceManager.getRoundDiceList());
             diceManager.diceTurnListInserter();
             diceManager.diceRoundListInserter();
@@ -172,11 +171,10 @@ public class DiceGame {
             inputNine = scanner.nextLine();
             inputNineLower = inputNine.toLowerCase();
         }
-        if ("f".equals(inputNineLower)) {
+        if ("f".equals(inputNineLower)) { // If the player inputs 'f' the forfeit game procedure will initiate.
             System.out.println(gameManager.forfeitGameProcedure());
-            // If the player inputs 't' and they have turns left, the throw dice procedure will initiate.
         }
-        if ("t".equals(inputNineLower)) {
+        if ("t".equals(inputNineLower)) { // If the player inputs 't' and they have turns left, the throw dice procedure will initiate.
             playerThrows(diceManager.getRoundDiceList());
             System.out.print("Enter 's' to select category > ");
             String inputTen = scanner.nextLine();
@@ -221,12 +219,6 @@ public class DiceGame {
 
     // This method controls the players sequence turn based on the amount of throws they have. 
     public void sequence() {
-        /*if (sequenceTreeSet.size() == 5) {
-            System.out.println("Your sequence attempt: ");
-            sequenceScoreModifier(); // Attain whether the player got a sequence.
-            sequenceTreeSet.clear();
-            return;
-        }*/
         if (gameManager.playerThrowCount == 0) { // if no more throws remaining attaempt a sequence with the dice list
             addDieNumberToSet();
             System.out.println("Your sequence attempt: ");
@@ -257,7 +249,7 @@ public class DiceGame {
             sequenceInput = scanner.nextLine();
         }
         if ("0".equals(sequenceInput)) { // If the user input is 0 the user has chosen to defer their throw.
-            System.out.println("\nyou have chosen to re-roll your dice, disregarding this throw.");
+            System.out.println("\nyou have chosen to take none of the dice from this roll. Reroll: ");
             diceManager.diceNumber = (5 - sequenceTreeSet.size());
             gameManager.decrementThrows(); // Decrement player throw count.
             diceManager.clearDiceList(diceManager.getDiceList()); // Clear the dice list ready for a fresh roll
@@ -272,11 +264,11 @@ public class DiceGame {
             if (checkForSequence()) {
                 sequenceScoreModifier(); // calculate the score and set variables for the players sequence turn.
                 sequenceTreeSet.clear();
-            } else if (sequenceTreeSet.size() == 5){
+            } else if (sequenceTreeSet.size() == 5) {
                 System.out.println("Your Sequence list has accumilated the maximum number of dice possible (5)");
                 sequenceScoreModifier(); // calculate the score and set variables for the players sequence turn.
                 sequenceTreeSet.clear();
-            }else {
+            } else {
                 sequenceThrowInformation(); // Print initial information and prompt the user to 't' throw of 'f' forfeit.
                 String inputTwo = scanner.nextLine();
                 String inputTwoLower = inputTwo.toLowerCase();
@@ -351,7 +343,7 @@ public class DiceGame {
 
     // A function to print out the rolled dice integers along with their corresponding place.
     public void printInitialThrow() {
-        System.out.println("0. None");
+        System.out.println("\nChoices:\n" + "0. None");
         if (diceManager.diceListSize() == 5) {
             System.out.print("1. [ " + diceManager.getDiceList().get(0) + " ]"
                     + "\n2. [ " + diceManager.getDiceList().get(1) + " ]"
@@ -383,7 +375,7 @@ public class DiceGame {
     public void sequenceScoreModifier() {
         boolean sequenceAchieved = (sequenceTreeSet.equals(new TreeSet<>(java.util.Arrays.asList(1, 2, 3, 4, 5)))
                 || sequenceTreeSet.equals(new TreeSet<>(java.util.Arrays.asList(2, 3, 4, 5, 6))));
-        if (sequenceAchieved) {
+        if (sequenceAchieved) { // If the sequence has been achieved switch on the 'Player' and update some variables.
             switch (gameManager.getCurrentTurnString()) {
                 case "Player One":
                     scoreManager.pOneSequence = "ACHIEVED";
@@ -401,7 +393,7 @@ public class DiceGame {
             }
             System.out.println("A correct sequence (1,2,3,4,5) / (2,3,4,5,6) has been established.\n"
                     + gameManager.getCurrentTurnString() + " scores 20 for the sequence category");
-        } else {
+        } else { // Else switch on the 'Player' and update some variables for not achieving the sequence
             switch (gameManager.getCurrentTurnString()) {
                 case "Player One":
                     scoreManager.pOneSequence = "MISSED";
@@ -429,10 +421,10 @@ public class DiceGame {
         }
         switch (player) {
             case "Player One":
-                scoreManager.playerOneTotalScore += totalScore;
+                scoreManager.playerOneTotalScore += totalScore; // Update the players totalScore.
                 switch (chosenDieNumber) {
                     case 1:
-                        scoreManager.pOneScoreOnes = turnScore;
+                        scoreManager.pOneScoreOnes = turnScore; // Update the players turnScore.
                         break;
                     case 2:
                         scoreManager.pOneScoreTwos = turnScore;
@@ -450,7 +442,7 @@ public class DiceGame {
                         scoreManager.pOneScoreSixes = turnScore;
                         break;
                     default:
-                        System.out.println("Error roundScoreCalculator 001");
+                        System.out.println("Error roundScoreCalculator 001"); // An error statement under the default case.
                         break;
                 }
                 break;
@@ -489,20 +481,20 @@ public class DiceGame {
 
     // A function to run the nessecary tasks to setup the next turn as the player has completed their turn.
     public void exitTurnProcedure() {
-        diceManager.clearDiceList(diceManager.getDiceList());
-        diceManager.clearDiceList(diceManager.getRoundDiceList());
-        diceManager.clearDiceList(diceManager.getTurnDiceList());
-        gameManager.playerThrowCount = 3;
-        gameManager.throwString = "First";
-        diceManager.diceNumber = 5;
-        gameManager.changeTurn();
+        diceManager.clearDiceList(diceManager.getDiceList()); // Clears the diceList array.
+        diceManager.clearDiceList(diceManager.getRoundDiceList());  // Clears the roundDiceList array.
+        diceManager.clearDiceList(diceManager.getTurnDiceList()); // Clear the turnDiceList array.
+        gameManager.playerThrowCount = 3; // Reset the players throw count for the next player.
+        gameManager.throwString = "First"; // Reset the throw String to "First".
+        diceManager.diceNumber = 5; // Reset the diceNumber which is used to 
+        gameManager.changeTurn(); // Change the players turn
         System.out.println("\n" + scoreManager.returnUpdatedScoreboard());
     }
 
     // A function to print out a stringBuilder of the numbers the player has left to choose. 
     public void selectionPrinter(String player) {
         selectionChoices.setLength(0);
-        switch (player) {
+        switch (player) { // Switch on the 'player' and if player is equal to "Player One" append their choices to the StringBuilder 'selectionchoices'
             case "Player One":
                 if (scoreManager.pOneScoreOnes == 0) {
                     selectionChoices.append("Ones (1) ");
@@ -526,7 +518,7 @@ public class DiceGame {
                     selectionChoices.append("Sequence (7) ");
                 }
                 break;
-            case "Player Two":
+            case "Player Two": // If player is equal to "Player Two" append their choices to the StringBuilder 'selectionchoices'
                 if (scoreManager.pTwoScoreOnes == 0) {
                     selectionChoices.append("Ones (1) ");
                 }
@@ -574,14 +566,14 @@ public class DiceGame {
 
     // A function to set the dice number using the roundDiceList. Also to print some necessary information for the player and promt them for an input.
     public void throwInformation() {
-        diceManager.setDiceNumber(diceManager.getRoundDiceList());
+        diceManager.setDiceNumber(diceManager.getRoundDiceList()); // Set the dicenumber 
         System.out.print(gameManager.throwString + " throw of this turn, " + gameManager.getCurrentTurnString() + " to throw " + diceManager.diceNumber + " dice."
                 + "\nThrow " + diceManager.diceNumber + " dice, enter 't' to throw or 'f' to forfeit > ");
     }
 
     // A function to set the dice number for the user, using the sequenceTreeSet' size. Also to print some necessary information for the player and promt them for an input.
     public void sequenceThrowInformation() {
-        diceManager.diceNumber = (5 - sequenceTreeSet.size());
+        diceManager.diceNumber = (5 - sequenceTreeSet.size()); // Set the diceNumber
         System.out.print(gameManager.throwString + " throw of this turn, " + gameManager.getCurrentTurnString() + " to throw " + diceManager.diceNumber + " dice."
                 + "\nThrow " + diceManager.diceNumber + " dice, enter 't' to throw or 'f' to forfeit > ");
     }
@@ -611,7 +603,7 @@ public class DiceGame {
     public void playOrExitGame() {
         System.out.print("Play game (1) or Exit game (0) > ");
         String playGame = scanner.nextLine();
-        while (validityManager.startGameIsValid(playGame) == false) {
+        while (validityManager.startGameIsValid(playGame) == false) { // While loop until a valid input is attained
             System.out.println("Not a valid input.");
             System.out.print("Play game (1) or Exit game (0) > ");
             playGame = scanner.nextLine();
