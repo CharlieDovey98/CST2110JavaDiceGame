@@ -1,8 +1,5 @@
 package cst2110javadicegame;
 
-import java.util.HashSet;
-import java.util.Set;
-
 // A class which holds key variables for the game to run and key functions that help the game run smoothly.
 public class GameManager {
 
@@ -13,7 +10,7 @@ public class GameManager {
     boolean categorySelected = false;
     public String throwString = "First";
     private Turn whoseTurn; // Initialising whoseTurn to be a enum from the Turn enum.
-    private Set<String> sequenceSet;
+    //private Set<String> sequenceSet = new HashSet<>();
 
     // An enum containing the two players.
     public enum Turn {
@@ -25,7 +22,6 @@ public class GameManager {
     public GameManager() {
         // setting the initial turn to PLAYERONE.
         this.whoseTurn = Turn.PLAYERONE;
-        sequenceSet = new HashSet<>();
     }
 
     // A method to return 'whoseturn'. this function is to be used by getCurrentTurnString() function.
@@ -73,6 +69,26 @@ public class GameManager {
     public String forfeitGameProcedure() {
         forfeit = true;
         changeTurn(); // Change turn to then print the winner.
-        return "Game Exited\n" + getCurrentTurnString() + " Wins via forfeit!";
+        return "Game Ended!\n" + getCurrentTurnString() + " Wins via forfeit!";
+    }
+
+    // A function to print out the remaining throws to the user
+    public void throwsRemainingOutput() {
+        if (throwsRemaining() == 1) {
+            System.out.println(throwsRemaining() + " throw remaining for this turn.");
+        } else {
+            System.out.println(throwsRemaining() + " throws remaining for this turn.");
+        }
+    }
+
+    // A function to print out a game end statement, showing the players their final score and the winner.
+    public void gameEndProcedure(int playerOneTotalScore, int playerTwoTotalScore) {
+        if (playerTwoTotalScore < playerOneTotalScore) {
+            System.out.println("The game has ended, Player One wins! and finished with a score of: " + playerOneTotalScore
+                    + ". Player Two has finished with a total score of: " + playerTwoTotalScore);
+        } else {
+            System.out.println("The game has ended, Player Two wins! and finished with a score of: " + playerTwoTotalScore
+                    + ". Player One has finished with a total score of: " + playerOneTotalScore);
+        }
     }
 }

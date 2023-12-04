@@ -16,14 +16,14 @@ public class DiceGame {
     public StringBuilder selectionChoices = new StringBuilder();
     public TreeSet<Integer> sequenceTreeSet = new TreeSet<>();
     Scanner scanner = new Scanner(System.in);
-    
+
     // A "start" function to hold the game itself.
     public void start() {
         System.out.println("This is a two player, Strategic dice game." // A print out of the game rules and objectives.
                 + "\nPlayers will take it in turns to roll 5 dice,"
                 + "\nchoosing a die number and scoring as many points as possible by attaining the max number of that die."
                 + "\nPlayers must attempt for a sequence within the game,\nattaining a run of either (1,2,3,4,5) or (2,3,4,5,6) for 20 points."
-                + "\nThe highest scoring player wins the game after 7 rounds!");
+                + "\nThe highest scoring player wins the game after 7 rounds!\n");
 
         playOrExitGame(); // Prompt the user to play or exit the game.
 
@@ -42,7 +42,7 @@ public class DiceGame {
             gameManager.roundPresented = false; // Set the round presented to false, to show on the next round.
         }
         if (!gameManager.forfeit) { // If a player should forfeit, call the gameEndProcedure to print the winner.
-            gameEndProcedure();
+            gameManager.gameEndProcedure(scoreManager.playerOneTotalScore, scoreManager.playerTwoTotalScore);
         }
     }
 
@@ -110,7 +110,6 @@ public class DiceGame {
                 System.out.println("Select a category not chosen before to play.\n");
                 selectionPrinter(gameManager.getCurrentTurnString());
                 String inputThree = scanner.nextLine();
-                System.out.println(gameManager.getCurrentTurnString());
                 // While the user input is invalid keep prompting the user until a correct input is attained.
                 while (validityManager.gameIntInputIsValid(inputThree) == false || validityManager.hasNumberBeenChosen(inputThree, gameManager.getCurrentTurnString()) == true) {
                     System.out.println("Not a valid input.");
@@ -222,6 +221,12 @@ public class DiceGame {
 
     // This method controls the players sequence turn based on the amount of throws they have. 
     public void sequence() {
+        /*if (sequenceTreeSet.size() == 5) {
+            System.out.println("Your sequence attempt: ");
+            sequenceScoreModifier(); // Attain whether the player got a sequence.
+            sequenceTreeSet.clear();
+            return;
+        }*/
         if (gameManager.playerThrowCount == 0) { // if no more throws remaining attaempt a sequence with the dice list
             addDieNumberToSet();
             System.out.println("Your sequence attempt: ");
@@ -258,7 +263,7 @@ public class DiceGame {
             diceManager.clearDiceList(diceManager.getDiceList()); // Clear the dice list ready for a fresh roll
             diceManager.diceRoller();
             System.out.println("\nThrow outcome: " + diceManager.printDiceList(diceManager.getDiceList()));
-            System.out.println("\n" + gameManager.throwsRemaining() + " throws remaining for this turn");
+            gameManager.throwsRemainingOutput(); // Print the remaining throws the player has.
             sequence();
         } else {
             addFromDiceListToSequenceSet(sequenceInput);
@@ -267,7 +272,11 @@ public class DiceGame {
             if (checkForSequence()) {
                 sequenceScoreModifier(); // calculate the score and set variables for the players sequence turn.
                 sequenceTreeSet.clear();
-            } else {
+            } else if (sequenceTreeSet.size() == 5){
+                System.out.println("Your Sequence list has accumilated the maximum number of dice possible (5)");
+                sequenceScoreModifier(); // calculate the score and set variables for the players sequence turn.
+                sequenceTreeSet.clear();
+            }else {
                 sequenceThrowInformation(); // Print initial information and prompt the user to 't' throw of 'f' forfeit.
                 String inputTwo = scanner.nextLine();
                 String inputTwoLower = inputTwo.toLowerCase();
@@ -288,7 +297,7 @@ public class DiceGame {
                     diceManager.clearDiceList(diceManager.getDiceList()); // Clear the dice list ready for a fresh roll
                     diceManager.diceRoller();
                     System.out.println("\nThrow outcome: " + diceManager.printDiceList(diceManager.getDiceList()));
-                    System.out.println("\n" + gameManager.throwsRemaining() + " throws remaining for this turn");
+                    gameManager.throwsRemainingOutput(); // Print the remaining throws the player has.
                     sequence();
                 }
             }
@@ -302,7 +311,7 @@ public class DiceGame {
         diceManager.clearDiceList(diceManager.getDiceList()); // Clear the dice list ready for a fresh roll.
         diceManager.diceRoller(); // Roll the dice.
         System.out.println("\nThrow outcome: " + diceManager.printDiceList(diceManager.getDiceList())); // Print the outcome of the dice roll.
-        System.out.println(gameManager.throwsRemaining() + " throws remaining for this turn"); // Print the remaining throws the player has.
+        gameManager.throwsRemainingOutput(); // Print the remaining throws the player has.
     }
 
     // A function to return whether the sequenceTreeSet matches either sequence array.
@@ -342,7 +351,6 @@ public class DiceGame {
 
     // A function to print out the rolled dice integers along with their corresponding place.
     public void printInitialThrow() {
-        System.out.println(diceManager.diceListSize());
         System.out.println("0. None");
         if (diceManager.diceListSize() == 5) {
             System.out.print("1. [ " + diceManager.getDiceList().get(0) + " ]"
@@ -613,17 +621,6 @@ public class DiceGame {
             System.out.println("Game Exited");
         } else {
             System.out.println("\n" + scoreManager.returnUpdatedScoreboard());
-        }
-    }
-
-    // A function to print out a game end statement, showing the players their final score and the winner.
-    public void gameEndProcedure() {
-        if (scoreManager.playerTwoTotalScore < scoreManager.playerOneTotalScore) {
-            System.out.println("The game has ended, Player One wins! and finished with a score of: " + scoreManager.playerOneTotalScore
-                    + ". Player Two has finished with a total score of: " + scoreManager.playerTwoTotalScore);
-        } else {
-            System.out.println("The game has ended, Player Two wins! and finished with a score of: " + scoreManager.playerTwoTotalScore
-                    + ". Player One has finished with a total score of: " + scoreManager.playerOneTotalScore);
         }
     }
 }

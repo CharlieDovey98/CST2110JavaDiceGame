@@ -103,7 +103,7 @@ public class ScoreboardManager {
 
     // A function called to update the scoreboard with the players sequence outcomes. 
     private String sequence(String playerOneSequence, String playerTwoSequence) {
-        String title = "Sequence 20";
+        String title = "Sequence";
         String playerOneSequenceOutcome;
         String playerTwoSequenceOutcome;
         switch (playerOneSequence) {
