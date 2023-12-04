@@ -1,7 +1,11 @@
 package cst2110javadicegame;
 
+// A Class which holds the Scoreboard information and player scores for the game.
 public class ScoreboardManager {
 
+    // The initialisations of the players scores.
+    // 0 is neutral, negative numbers mean the player scored nothing for that choice, and positive integers is the players score.
+    // These are updated after each round when the player makes a choice and scores against that choice.
     public int pOneScoreOnes = 0;
     public int pTwoScoreOnes = 0;
 
@@ -20,12 +24,15 @@ public class ScoreboardManager {
     public int pOneScoreSixes = 0;
     public int pTwoScoreSixes = 0;
 
+    // Two boolean variables to show whether the player has attempted a sequence or not.
     public boolean pOneSequenceAttempted = false;
     public boolean pTwoSequenceAttempted = false;
 
+    // both players total scores which will be updated each round and shown on the scoreboard.
     public int playerOneTotalScore = 0;
     public int playerTwoTotalScore = 0;
 
+    // Strings which will be updated when the player has attempted a sequence.
     public String pOneSequence = "NULL";
     public String pTwoSequence = "NULL";
 
@@ -33,8 +40,10 @@ public class ScoreboardManager {
     final String MISSED = "MISSED";
     final String ACHIEVED = "ACHIEVED";
 
+    // The initialisation of the StringBuilder scoreboard.
     public StringBuilder scoreboard = new StringBuilder();
 
+    // A function which when called will reset the scoreboard, then call different functions to update and append to the scoreboard. Returning it once complete.
     public StringBuilder returnUpdatedScoreboard() {
         scoreboard.setLength(0);
         scoreboard.append("------------------------------------------\n");
@@ -58,8 +67,9 @@ public class ScoreboardManager {
         scoreboard.append("------------------------------------------\n"); // method to update sequence and overall scores
         return scoreboard;
     }
-//
 
+    // A function to update a row of the scoreboard. 
+    // This function is passed both players scores as parameters and will return a String.format showing the outcome of a players turn.
     public String updateRow(String round, int pOneScoreAfterTurn, int pTwoScoreAfterTurn) {
         String space = "   ";
         if (pOneScoreAfterTurn < 0 && pTwoScoreAfterTurn > 0) {
@@ -85,11 +95,13 @@ public class ScoreboardManager {
         }
     }
 
+    // A function to return both players total scores as a String.
     private String totalScores() {
         String title = "Total:";
         return String.format("| %-6s       |     %3d    |     %3d    |\n", title, playerOneTotalScore, playerTwoTotalScore);
     }
 
+    // A function called to update the scoreboard with the players sequence outcomes. 
     private String sequence(String playerOneSequence, String playerTwoSequence) {
         String title = "Sequence 20";
         String playerOneSequenceOutcome;
@@ -107,7 +119,6 @@ public class ScoreboardManager {
             default:
                 playerOneSequenceOutcome = " ";
         }
-
         switch (playerTwoSequence) {
             case NULL:
                 playerTwoSequenceOutcome = " ";
@@ -117,12 +128,10 @@ public class ScoreboardManager {
                 break;
             case ACHIEVED:
                 playerTwoSequenceOutcome = "20";
-                //playerTwoTotalScore += 20;
                 break;
             default:
                 playerTwoSequenceOutcome = " ";
         }
         return String.format("| %-11s  |      %2s    |      %2s    |\n", title, playerOneSequenceOutcome, playerTwoSequenceOutcome);
-
     }
 }
