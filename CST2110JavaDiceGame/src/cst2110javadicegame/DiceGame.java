@@ -79,12 +79,12 @@ public class DiceGame {
     // This method is the first throw of a players turn.
     public void playerFirstThrow() {
         throwInformation(); // Print initial information and prompt the user to 't' throw of 'f' forfeit.
-        String inputOne = scanner.nextLine();// Attain the user input and push it to lowercase.
+        String inputOne = scanner.nextLine().trim();// Attain the user input and push it to lowercase.
         String inputOneLower = inputOne.toLowerCase();
         while (validityManager.throwForfeitInputIsValid(inputOneLower) == false) { // while user input is invalid keep prompting the user until a valid input is attained.
             System.out.println("Not a valid input.");
             throwInformation();
-            inputOne = scanner.nextLine();
+            inputOne = scanner.nextLine().trim();
             inputOneLower = inputOne.toLowerCase();
         }
         if ("f".equals(inputOneLower)) { // If the player inputs 'f' the forfeit game procedure will initiate.
@@ -93,13 +93,13 @@ public class DiceGame {
         if ("t".equals(inputOneLower)) { // If the player inputs 't' the players turn proceeds.
             playerThrows(diceManager.getRoundDiceList());
             System.out.print("Enter 's' to select category or 'd' to defer and re-roll > ");
-            String inputTwo = scanner.nextLine();
+            String inputTwo = scanner.nextLine().trim();
             String inputTwoLower = inputTwo.toLowerCase();
             // While the user input is invalid keep prompting the user until a correct input is attained.
             while (validityManager.selectDeferInputIsValid(inputTwoLower) == false) {
                 System.out.println("Not a valid input.");
                 System.out.print("Enter 's' to select category or 'd' to defer and re-roll > ");
-                inputTwo = scanner.nextLine();
+                inputTwo = scanner.nextLine().trim();
                 inputTwoLower = inputTwo.toLowerCase();
             }
             if ("d".equals(inputTwoLower)) { // If the player inputs 'd' the turn is deferred 
@@ -109,13 +109,13 @@ public class DiceGame {
             if ("s".equals(inputTwoLower)) { // If the player inputs 's' the user will be prompted to select a category that they havent already chosen.
                 System.out.println("Select a category not chosen before to play.\n");
                 selectionPrinter(gameManager.getCurrentTurnString());
-                String inputThree = scanner.nextLine();
+                String inputThree = scanner.nextLine().trim();
                 // While the user input is invalid keep prompting the user until a correct input is attained.
                 while (validityManager.gameIntInputIsValid(inputThree) == false || validityManager.hasNumberBeenChosen(inputThree, gameManager.getCurrentTurnString()) == true) {
                     System.out.println("Not a valid input.");
                     System.out.println("Select a category not chosen before to play.\n");
                     selectionPrinter(gameManager.getCurrentTurnString()); // Print out the choices left over for the user.
-                    inputThree = scanner.nextLine();
+                    inputThree = scanner.nextLine().trim();
                 }
                 if ("7".equals(inputThree)) { // If the player inputs '7' the sequence turn will be initiated.
                     diceManager.switchOnInput(inputThree); // Switch statement to retrieve the chosen die number from the user.
@@ -139,13 +139,13 @@ public class DiceGame {
     // This method is another throw of a players turn.
     public void playerNextThrow() {
         throwInformation(); // Print initial information and prompt the user to 't' throw of 'f' forfeit.
-        String inputFour = scanner.nextLine();
+        String inputFour = scanner.nextLine().trim();
         String inputFourLower = inputFour.toLowerCase();
         // While the user input is invalid keep prompting the user until a correct input is attained.
         while (validityManager.throwForfeitInputIsValid(inputFourLower) == false) {
             System.out.println("Not a valid input.");
             System.out.print("Enter 't' to throw or 'f' to forfeit > ");
-            inputFour = scanner.nextLine();
+            inputFour = scanner.nextLine().trim();
             inputFourLower = inputFour.toLowerCase();
         }
         if ("f".equals(inputFourLower)) { // If the player inputs 'f' the forfeit game procedure will initiate.
@@ -163,12 +163,12 @@ public class DiceGame {
     // This method is another throw of a players turn.
     public void playerFinalThrow() {
         throwInformation();
-        String inputNine = scanner.nextLine();// Attain the user input and force it to lowercase.
+        String inputNine = scanner.nextLine().trim();// Attain the user input and force it to lowercase.
         String inputNineLower = inputNine.toLowerCase();
         while (validityManager.throwForfeitInputIsValid(inputNineLower) == false) {
             System.out.println("Not a valid input.");
             throwInformation(); // Print initial information and prompt the user to 't' throw of 'f' forfeit.
-            inputNine = scanner.nextLine();
+            inputNine = scanner.nextLine().trim();
             inputNineLower = inputNine.toLowerCase();
         }
         if ("f".equals(inputNineLower)) { // If the player inputs 'f' the forfeit game procedure will initiate.
@@ -177,25 +177,25 @@ public class DiceGame {
         if ("t".equals(inputNineLower)) { // If the player inputs 't' and they have turns left, the throw dice procedure will initiate.
             playerThrows(diceManager.getRoundDiceList());
             System.out.print("Enter 's' to select category > ");
-            String inputTen = scanner.nextLine();
+            String inputTen = scanner.nextLine().trim();
             String inputTenLower = inputTen.toLowerCase();
             // While the user input is invalid keep prompting the user until a correct input is attained.
             while (!"s".equals(inputTenLower)) {
                 System.out.println("Not a valid input.");
                 System.out.print("Enter 's' to select category > ");
-                inputTen = scanner.nextLine();
+                inputTen = scanner.nextLine().trim();
                 inputTenLower = inputTen.toLowerCase();
             }
             if ("s".equals(inputTenLower)) {
                 System.out.println("Select a category not chosen before to play.\n");
                 selectionPrinter(gameManager.getCurrentTurnString());
-                String userInput = scanner.nextLine();
+                String userInput = scanner.nextLine().trim();
                 // While the user input is invalid keep prompting the user until a correct input is attained.
                 while (validityManager.gameIntInputIsValid(userInput) == false || validityManager.hasNumberBeenChosen(userInput, gameManager.getCurrentTurnString()) == true) {
                     System.out.println("Not a valid input.");
                     System.out.println("Select a category not chosen before to play.\n");
                     selectionPrinter(gameManager.getCurrentTurnString());
-                    userInput = scanner.nextLine();
+                    userInput = scanner.nextLine().trim();
                 }
                 if ("7".equals(userInput)) {
                     diceManager.switchOnInput(userInput); // Switch statement to retrieve the chosen die number from the user
@@ -241,12 +241,12 @@ public class DiceGame {
     public void sequenceTurn() {
         printInitialThrow(); // Print the players first throw formatted on a new line for each integer with a corresponding index number.
         System.out.print("Choose which dice you wish to set aside.\nEnter a number seperated by a space (e.g. >1 3 4 5) > ");
-        String sequenceInput = scanner.nextLine();
+        String sequenceInput = scanner.nextLine().trim();
         // While the user input is invalid keep prompting the user until a correct input is attained.
         while (validityManager.sequenceIntInputIsValid(sequenceInput, diceManager.diceListSize()) == false) {
             System.out.println("Not a valid input.");
             System.out.print("Choose which dice you wish to set aside.\nEnter a number seperated by a space (e.g. >1 3 4 5) > ");
-            sequenceInput = scanner.nextLine();
+            sequenceInput = scanner.nextLine().trim();
         }
         if ("0".equals(sequenceInput)) { // If the user input is 0 the user has chosen to defer their throw.
             System.out.println("\nyou have chosen to take none of the dice from this roll. Reroll: ");
@@ -270,13 +270,13 @@ public class DiceGame {
                 sequenceTreeSet.clear();
             } else {
                 sequenceThrowInformation(); // Print initial information and prompt the user to 't' throw of 'f' forfeit.
-                String inputTwo = scanner.nextLine();
+                String inputTwo = scanner.nextLine().trim();
                 String inputTwoLower = inputTwo.toLowerCase();
                 // While the user input is invalid keep prompting the user until a correct input is attained.
                 while (validityManager.throwForfeitInputIsValid(inputTwoLower) == false) {
                     System.out.println("Not a valid input.");
                     System.out.print("Eenter 't' to throw or 'f' to forfeit > ");
-                    inputTwo = scanner.nextLine();
+                    inputTwo = scanner.nextLine().trim();
                     inputTwoLower = inputTwo.toLowerCase();
                 }
                 // If the player inputs 'f' the game will end with the player forfeiting
@@ -602,11 +602,11 @@ public class DiceGame {
     // A function which starts or ends the game. This function promtps the user to enter '1' or '0' to play of quit.
     public void playOrExitGame() {
         System.out.print("Play game (1) or Exit game (0) > ");
-        String playGame = scanner.nextLine();
+        String playGame = scanner.nextLine().trim();
         while (validityManager.startGameIsValid(playGame) == false) { // While loop until a valid input is attained
             System.out.println("Not a valid input.");
             System.out.print("Play game (1) or Exit game (0) > ");
-            playGame = scanner.nextLine();
+            playGame = scanner.nextLine().trim();
         }
         if ("0".equals(playGame)) {
             gameManager.forfeit = true;
